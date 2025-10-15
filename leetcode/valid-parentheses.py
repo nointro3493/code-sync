@@ -1,40 +1,42 @@
-class Solution {
-    public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
-        char currentChar;
-        Map<Character, Character> map = new HashMap<>();
-        map.put(')', '(');
-        map.put('}', '{');
-        map.put(']', '[');
-        for(int i  = 0; i < s.length(); i++){
-             currentChar = s.charAt(i);
-            if (map.containsKey(currentChar)) {
-               
-            // currentChar is closing bracket
-               
-                if(!(s.contains(")") || s.contains("]") || s.contains("}"))){
-                    return false;
-                }
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
 
-                 else if (stack.isEmpty() || stack.peek() != map.get(currentChar)) {
-                    return false;  // mismatch or no opening bracket
-                }
+# Approach
+<!-- Describe your approach to solving the problem. -->
 
-                else {stack.pop();}
-            }
+# Complexity
+- Time complexity:
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
 
-            else if(s.length() == 1) {
-            return false;
-           
-        }
+- Space complexity:
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
 
-            else{
-                 stack.push(currentChar);
-
-            }
+# Code
+```python []
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        valid_bracks = {")":"(", "}":"{", "]":"["}
+        stack = []
         
-    }
+        for i in range(len(s)):
+            if s[i] in valid_bracks:
+                if stack and stack[-1] == valid_bracks[s[i]]:
+                    stack.pop()
+                
+                else:
+                    return False
+            
+            else:
+                stack.append(s[i])
 
-    return stack.isEmpty();
-}
-}
+        if stack:
+            return False
+        else:
+            return True
+
+                    
+```
